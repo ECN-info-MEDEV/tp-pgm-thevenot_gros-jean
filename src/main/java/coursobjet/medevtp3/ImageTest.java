@@ -19,27 +19,37 @@ import javax.swing.JPanel;
  * @author Nicol
  */
 public class ImageTest {
+    
+    private double[][] floatImage;
 
-    private static final int HEIGHT = 250;
-    private static final int WIDTH = 250;
-
-    public static void main(String[] args) {
-        double[][] data = new double[WIDTH][HEIGHT];
-        Random r = new Random();
-        for(int i = 0; i < WIDTH; i++) {
-            for(int j = 0; j < HEIGHT; j++) {
-                data[i][j] = r.nextDouble();
+    private int height;
+    private int width;
+    
+    public ImageTest(){
+        
+    }
+    
+    public void readImage(double[][] arrImage, int largeur, int hauteur){
+        this.height = hauteur;
+        this.width = largeur;
+        
+        floatImage = new double[width][height];
+        
+        for(int i = 0; i < width; i++) {
+            for(int j = 0; j < height; j++) {
+                floatImage[i][j] = (float) (((float) arrImage[i][j])/255.0);
             }
         }
-
-        final BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    }
+    
+    public void printImage(){
+        final BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = (Graphics2D)img.getGraphics();
-        for(int i = 0; i < WIDTH; i++) {
-            for(int j = 0; j < HEIGHT; j++) {
-                float c = (float) data[i][j];
+        for(int i = 0; i < width; i++) {
+            for(int j = 0; j < height; j++) {
+                float c = (float) floatImage[i][j];
                 g.setColor(new Color(c, c, c));
                 g.fillRect(i, j, 1, 1);
-                data[i][j] = r.nextDouble();
             }
         }
 
@@ -58,9 +68,30 @@ public class ImageTest {
                 g2d.drawImage(img, 0, 0, this);
             }
         };
-        panel.setPreferredSize(new Dimension(WIDTH*2, HEIGHT*2));
+        panel.setPreferredSize(new Dimension(width*2, height*2));
         frame.getContentPane().add(panel);
         frame.pack();
         frame.setVisible(true);
+    }
+    
+    public static void main(String[] args) {
+        
+        int width = 100;
+        int height = 100;
+        
+        double[][] imgTemp = new double[width][height];
+        Random r = new Random();
+        for(int i = 0; i < width; i++) {
+            for(int j = 0; j < height; j++) {
+                imgTemp[i][j] = r.nextDouble()*255;
+            }
+        }
+        
+        ImageTest objIm = new ImageTest();
+        
+        objIm.readImage(imgTemp, width, height);
+        
+        objIm.printImage();
+        
     }
 }
