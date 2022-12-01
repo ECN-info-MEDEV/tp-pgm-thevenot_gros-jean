@@ -41,6 +41,23 @@ public class Image {
         this.pixels = new int[this.largeur][this.hauteur];
     }
     
+    
+    
     //TODO méthode de lecture d'une image à partir d'un fichier
+
+    /**
+     * constructeur ou on donne une matrice
+     * @param pixels 
+     */
+    public Image(int[][] pixels) {
+        this.commentaire = "";
+        this.largeur = pixels.length;
+        this.hauteur = pixels[0].length;
+        this.pixels = new int[this.largeur][this.hauteur];
+        for (int i=0; i<this.largeur; i++ ){
+            System.arraycopy(pixels[i], 0, this.pixels[i], 0, this.hauteur);
+        }
+        
+    }
     
 }
