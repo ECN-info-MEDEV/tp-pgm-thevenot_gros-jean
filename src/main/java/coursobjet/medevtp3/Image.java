@@ -1,0 +1,46 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package coursobjet.medevtp3;
+
+
+/**
+ * Structure de donnée pour les images pgm
+ * @author vince
+ */
+public class Image {
+    
+    /**
+     * Commentaire dans le fichier PGM
+     */
+    public String commentaire;
+    
+    /**
+     * largeur de l'immage (en pixels)
+     */
+    public int largeur;
+    
+    /**
+     * hauteur de l'immage (en pixels)
+     */
+    public int hauteur;
+    
+    /**
+     * valeur des pixels sous forme de tableau 2D
+     */
+    public int[][] pixels;
+
+    /**
+     * constructeur par défaut d'une image
+     */
+    public Image() {
+        this.commentaire = new String();
+        this.largeur = 0;
+        this.hauteur = 0;
+        this.pixels = new int[this.largeur][this.hauteur];
+    }
+    
+    //TODO méthode de lecture d'une image à partir d'un fichier
+    
+}
