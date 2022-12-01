@@ -56,6 +56,20 @@ public class Image {
         }  
     }
     
+    /**
+     * Constructeur de copie
+     * @param im image à copier
+     */
+    public Image(Image im) {
+        this.commentaire = im.commentaire;
+        this.largeur = im.largeur;
+        this.hauteur = im.hauteur;
+        this.pixels = new int[im.largeur][im.hauteur];
+        for (int i=0; i<this.largeur; i++ ){
+            System.arraycopy(im.pixels[i], 0, this.pixels[i], 0, this.hauteur);
+        } 
+    }
+    
     //TODO méthode de lecture d'une image à partir d'un fichier
     
     public static Image lire(String chemin) { //FIXME IL FAUT FAIRE L'IO SAUVEZ MOI
@@ -84,4 +98,28 @@ public class Image {
     }
     
     //TODO méthode pour écrire un fichier
+    
+    /**
+     * créé une image de taille doublée
+     * @param reference image à agrandir
+     * @return im une autre image qui correspond à la référence avec une taille doublée
+     */
+    public static Image agrandir(Image reference) {
+        Image im = new Image(reference);
+        im.hauteur = reference.hauteur * 2;
+        im.largeur = reference.largeur * 2;
+        int[][] newpixels = new int[im.largeur][im.hauteur];
+        for (int i=0; i<reference.largeur; i++ ){
+            for (int j=0; j<reference.hauteur; j++) {
+                //on lit 4 fois dans l'array jsp si c'est opti
+                newpixels[i][j] = reference.pixels[i][j];
+                newpixels[i+1][j] = reference.pixels[i][j];
+                newpixels[i][j+1] = reference.pixels[i][j];
+                newpixels[i+1][j+1] = reference.pixels[i][j];
+                
+            }
+        } 
+        im.pixels = newpixels;
+        return im;
+    }
 }
