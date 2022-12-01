@@ -4,6 +4,7 @@
  */
 package coursobjet.medevtp3;
 import java.io.*;
+import java.util.StringTokenizer;
 
 
 /**
@@ -74,26 +75,45 @@ public class Image {
     
     public static Image lire(String chemin) { //FIXME IL FAUT FAIRE L'IO SAUVEZ MOI
         
-        try
-      {
-      // Le fichier d'entrée
-      File file = new File(chemin);    
-      java.util.Scanner lecteur;
-      lecteur = new java.util.Scanner(file);
-      
-      while (lecteur.hasNextInt()) System.out.println(lecteur.nextInt());
-	 
-    }
-    catch(IOException e)
-    {
-      e.printStackTrace();
-    }
-        
-        int[][] pixels = new int[1][1]; //TODO lire largeur et hauteur pour construire ici
-        
-        //TODO construire la matrice
-        
-        Image image = new Image(pixels);
+        int l = 0 ; //largeur
+        int h = 0; //hauteur
+        int compteur = 0;
+        int compteurLigne = 0;
+        String ligne;
+        String com = "";
+        try {
+            BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+            
+            ligne = fichier.readLine(); //ligne P2, osef
+            ligne = fichier.readLine(); //ligne du commentaire
+            com = ligne; //on garde le # par fleme
+            ligne = fichier.readLine(); //ligne des tailles
+            StringTokenizer st = new StringTokenizer(ligne);
+            l = Integer.parseInt(st.nextToken());
+            h = Integer.parseInt(st.nextToken());
+            int[][] pixels = new int[l][h];
+               
+            ligne = fichier.readLine(); //ligne 255, osef
+            ligne = fichier.readLine(); //première ligne des valeurs des pixels
+            compteur = 0;
+            compteurLigne = 0;
+            while (ligne != null) {
+                st = new StringTokenizer(ligne);
+                while (st.hasMoreTokens()) {
+                    pixels[compteurLigne][compteur] = Integer.parseInt(st.nextToken());
+                    compteur += 1;
+                }
+                ligne = fichier.readLine();
+                compteurLigne += 1;
+            }
+            
+            fichier.close(); 
+        }
+        catch(IOException e) {
+        e.printStackTrace();
+        }
+        Image image = new Image(pixels); //FIXME au secours
+        image.commentaire = com;
         return image;
     }
     
