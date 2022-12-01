@@ -58,26 +58,17 @@ public class Image {
     
     //TODO méthode de lecture d'une image à partir d'un fichier
     
-    public static Image lire(String chemin) {
+    public static Image lire(String chemin) { //FIXME IL FAUT FAIRE L'IO SAUVEZ MOI
         
         try
       {
       // Le fichier d'entrée
       File file = new File(chemin);    
-      // Créer l'objet File Reader
-      FileReader fr = new FileReader(file);  
-      // Créer l'objet BufferedReader        
-      BufferedReader br = new BufferedReader(fr);  
-      StringBuffer sb = new StringBuffer();    
-      String line;
-      while((line = br.readLine()) != null)
-      {
-        // ajoute la ligne au buffer
-        sb.append(line);      
-        sb.append("\n");     
-      }
-      fr.close();    
-      System.out.println(sb.toString());  
+      java.util.Scanner lecteur;
+      lecteur = new java.util.Scanner(file);
+      
+      while (lecteur.hasNextInt()) System.out.println(lecteur.nextInt());
+	 
     }
     catch(IOException e)
     {
